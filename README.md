@@ -1,7 +1,16 @@
+<div align="center">
+
+<img src="https://raw.githubusercontent.com/loreanvictor/callbag-jsx/main/docs/assets/callbag.svg" width="128px"/>
+<br/>
+
 # test-callbag-jsx
 
 [![tests](https://img.shields.io/github/workflow/status/loreanvictor/test-callbag-jsx/Run%20Tests?label=tests&logo=mocha&logoColor=green&style=flat-square)](https://github.com/loreanvictor/test-callbag-jsx/actions?query=workflow%3A%22Run+Tests%22)
 [![version](https://img.shields.io/npm/v/test-callbag-jsx?logo=npm&style=flat-square)](https://www.npmjs.com/package/test-callbag-jsx)
+
+</div>
+
+---
 
 A simple utility for testing callbag-jsx code.
 
