@@ -91,3 +91,22 @@ describe('RemovableHellow', () => {
   })
 })
 ```
+
+<br><br>
+
+## Contribution
+
+Be nice and respectful. Useful commands for development:
+
+```bash
+git clone https://github.com/loreanvictor/test-callbag-jsx.git
+```
+```bash
+npm i             # --> install dependencies
+```
+```bash
+npm test          # --> run tests
+```
+```bash
+npm run cov:view  # --> view code coverage
+```
