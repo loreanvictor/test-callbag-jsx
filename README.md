@@ -5,8 +5,8 @@ A simple utility for testing callbag-jsx code.
 npm i --save-dev test-callbag-jsx
 ```
 
-👉 Testing-framework agnostic
-👉 Provides an isolated document and renderer for testing around
+👉 Testing-framework agnostic \
+👉 Provides an isolated document and renderer for testing around \
 👉 Provides a function for clicking around to test interactions
 
 P.S. this tool is pretty young. I will be adding further testing features (like controlling HTML inputs,
