@@ -1,0 +1,41 @@
+{
+  "name": "test-callbag-jsx",
+  "version": "0.0.1",
+  "description": "testing utility for callbag-jsx",
+  "main": "dist/es5/index.js",
+  "module": "dist/es6/index.js",
+  "types": "dist/es6/index.d.ts",
+  "dependencies": {
+    "callbag-jsx": "^0.1.12",
+    "jsdom": "^16.4.0",
+    "render-jsx": "^0.2.4"
+  },
+  "devDependencies": {
+    "ts-loader": "^8.0.13",
+    "ts-node": "^9.1.1",
+    "tslib": "^2.0.3",
+    "typescript": "^4.1.3",
+    "eslint": "^7.17.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build-es5": "tsc -p conf/typescript/es5.json",
+    "build-es6": "tsc -p conf/typescript/es6.json",
+    "build": "npm run build-es5 && npm run build-es6"
+  },
+  "sideEffects": false,
+  "files": [
+    "dist/es6",
+    "dist/es5"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/loreanvictor/test-callbag-jsx.git"
+  },
+  "author": "Eugene Ghanizadeh Khoub <ghanizadeh.eugene@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/loreanvictor/test-callbag-jsx/issues"
+  },
+  "homepage": "https://github.com/loreanvictor/test-callbag-jsx#readme"
+}
