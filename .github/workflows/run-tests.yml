@@ -1,4 +1,4 @@
-name: Test and Report Coverage
+name: Run Tests
 on: push
 jobs:
   do:
