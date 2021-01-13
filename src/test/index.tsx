@@ -18,6 +18,6 @@ describe('testRender()', () => {
     testRender((renderer, document) => {
       renderer.render(<div>Hellow</div>).on(document.body);
       jsdom.window!.document!.body!.textContent!.should.equal('Hellow');
-    }, jsdom);
+    }, jsdom.window);
   });
 });

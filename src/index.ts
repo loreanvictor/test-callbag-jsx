@@ -10,9 +10,9 @@ export interface Extras {
 
 export function testRender(
   test: (renderer: LiveDOMRenderer, document: Document, extras: Extras) => void,
-  provided?: JSDOM,
+  provided?: DOMWindow,
 ) {
-  const dom = (provided || new JSDOM()).window;
+  const dom = provided || (new JSDOM().window);
   const renderer = makeRenderer(dom);
 
   test(renderer, dom.document, {
