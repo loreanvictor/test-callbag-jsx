@@ -8,8 +8,11 @@ export interface Extras {
   click: (element: HTMLElement) => void;
 }
 
-export function testRender(test: (renderer: LiveDOMRenderer, document: Document, extras: Extras) => void) {
-  const dom = new JSDOM().window;
+export function testRender(
+  test: (renderer: LiveDOMRenderer, document: Document, extras: Extras) => void,
+  provided?: JSDOM,
+) {
+  const dom = (provided || new JSDOM()).window;
   const renderer = makeRenderer(dom);
 
   test(renderer, dom.document, {
