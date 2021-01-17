@@ -81,11 +81,11 @@ should()
 
 describe('RemovableHellow', () => {
   it('should say hellow and then be removed when clicked', () => {
-    testRender((renderer, document, extras) => {
+    testRender((renderer, document, $) => {
       renderer.render(<RemovableHellow name='Jack'/>).on(document.body)
       document.body.textContent.should.equal('Hellow Jack!')
 
-      extras.click(document.body.firstChild)
+      $('body :first-child').click()
       document.body.textContent.should.equal('')
     })
   })

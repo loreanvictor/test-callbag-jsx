@@ -2,24 +2,20 @@ import { DOMWindow, JSDOM } from 'jsdom';
 import { LiveDOMRenderer } from 'render-jsx/dom';
 import { makeRenderer } from 'callbag-jsx';
 
+import { makeQueryFn, QueryFn } from './query';
 
-export interface Extras {
-  window: DOMWindow;
-  click: (element: HTMLElement) => void;
-}
 
 export function testRender(
-  test: (renderer: LiveDOMRenderer, document: Document, extras: Extras) => void,
+  test: (renderer: LiveDOMRenderer, document: Document, $: QueryFn, window: DOMWindow) => void,
   provided?: DOMWindow,
 ) {
   const dom = provided || (new JSDOM().window);
   const renderer = makeRenderer(dom);
 
-  test(renderer, dom.document, {
-    window: dom,
-    click: el => {
-      const e = new dom.Event('click');
-      el.dispatchEvent(e);
-    }
-  });
+  test(
+    renderer,
+    dom.document,
+    makeQueryFn(dom),
+    dom
+  );
 }
