@@ -1,14 +1,18 @@
 {
   "name": "test-callbag-jsx",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "testing utility for callbag-jsx",
   "main": "dist/es5/index.js",
   "module": "dist/es6/index.js",
   "types": "dist/es6/index.d.ts",
   "dependencies": {
     "@types/jsdom": "^16.2.6",
+    "@types/jsdom-global": "^3.0.2",
     "callbag-jsx": "^0.1.12",
     "jsdom": "^16.4.0",
+    "jsdom-global": "^3.0.2",
+    "localstorage-polyfill": "^1.0.1",
+    "matchmedia-polyfill": "^0.3.2",
     "render-jsx": "^0.2.4"
   },
   "devDependencies": {
