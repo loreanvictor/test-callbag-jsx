@@ -107,6 +107,4 @@ npm i             # --> install dependencies
 ```bash
 npm test          # --> run tests
 ```
-```bash
-npm run cov:view  # --> view code coverage
-```
+
