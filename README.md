@@ -46,9 +46,9 @@ should()
 
 describe('Hellow', () => {
   it('should say hellow', () => {
-    testRender((renderer, document) => {
+    testRender((renderer, document, $) => {
       renderer.render(<Hellow name='World'/>).on(document.body)
-      document.body.textContent.should.equal('Hellow World!')
+      $('body').text().should.equal('Hellow World!')
     })
   })
 })
@@ -83,10 +83,10 @@ describe('RemovableHellow', () => {
   it('should say hellow and then be removed when clicked', () => {
     testRender((renderer, document, $) => {
       renderer.render(<RemovableHellow name='Jack'/>).on(document.body)
-      document.body.textContent.should.equal('Hellow Jack!')
+      $('body').text().should.equal('Hellow Jack!')
 
       $('body :first-child').click()
-      document.body.textContent.should.equal('')
+      $(body).text().should.equal('')
     })
   })
 })
