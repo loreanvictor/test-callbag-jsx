@@ -28,35 +28,6 @@ etc) based on request or need.
 ## Usage
 
 ```tsx
-// hellow.tsx
-
-export function Hellow({ name }, renderer) {
-  return <div>Hellow {name}!</div>
-}
-```
-```tsx
-// hellow.test.tsx
-
-import { testRender } from 'test-callbag-jsx'
-import { should } from 'chai'
-
-import { Hellow } from './hellow'
-
-should()
-
-describe('Hellow', () => {
-  it('should say hellow', () => {
-    testRender((renderer, document, $) => {
-      renderer.render(<Hellow name='World'/>).on(document.body)
-      $('body').text().should.equal('Hellow World!')
-    })
-  })
-})
-```
-
-Another example:
-
-```tsx
 // removable-hellow.tsx
 
 import { ref } from 'render-jsx/common'
@@ -73,14 +44,15 @@ export function RemovableHellow({ name }, renderer) {
 // removable-hellow.test.tsx
 
 import { testRender } from 'test-callbag-jsx'
-import { should } from 'chai'
 
+import { should } from 'chai'
 import { RemovableHellow } from './removable-hellow'
 
 should()
 
 describe('RemovableHellow', () => {
   it('should say hellow and then be removed when clicked', () => {
+
     testRender((renderer, document, $) => {
       renderer.render(<RemovableHellow name='Jack'/>).on(document.body)
       $('body').text().should.equal('Hellow Jack!')
@@ -88,9 +60,14 @@ describe('RemovableHellow', () => {
       $('body :first-child').click()
       $(body).text().should.equal('')
     })
+
   })
 })
 ```
+
+<br>
+
+👉 [Read the Docs](/usage.md)
 
 <br><br>
 
