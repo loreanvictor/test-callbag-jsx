@@ -54,7 +54,9 @@ describe('RemovableHellow', () => {
   it('should say hellow and then be removed when clicked', () => {
 
     testRender((renderer, document, $) => {
-      renderer.render(<RemovableHellow name='Jack'/>).on(document.body)
+      renderer.render(
+        <RemovableHellow name='Jack'/>
+      ).on(document.body)
       $('body').text().should.equal('Hellow Jack!')
 
       $('body :first-child').click()
