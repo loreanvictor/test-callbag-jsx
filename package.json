@@ -1,6 +1,6 @@
 {
   "name": "test-callbag-jsx",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "testing utility for callbag-jsx",
   "main": "dist/es5/index.js",
   "module": "dist/es6/index.js",

@@ -3,26 +3,40 @@ import { DOMWindow, JSDOM } from 'jsdom';
 import { LiveDOMRenderer } from 'render-jsx/dom';
 import { makeRenderer } from 'callbag-jsx';
 
-import { makeQueryFn, QueryFn } from './query';
+import { makeQueryFn } from './query';
+import { makeRenderFn, RenderFn, SpecUtils } from './spec';
 
+
+export interface TestingUtils extends SpecUtils {
+  render: RenderFn;
+}
+
+export type LocalTestFn = (renderer: LiveDOMRenderer, utils: TestingUtils) => void;
 
 export function testRender(
-  test: (renderer: LiveDOMRenderer, document: Document, $: QueryFn, window: DOMWindow) => void,
+  test: LocalTestFn,
   provided?: DOMWindow,
 ) {
   const dom = provided || (new JSDOM().window);
   const renderer = makeRenderer(dom);
 
+  const specUtils = {
+    document: dom.document,
+    window: dom as any as Window,
+    $: makeQueryFn(dom),
+  };
+
   test(
     renderer,
-    dom.document,
-    makeQueryFn(dom),
-    dom
+    {
+      ...specUtils,
+      render: makeRenderFn(renderer, specUtils),
+    }
   );
 }
 
-type SyncGlobalTestFn = (renderer: LiveDOMRenderer, $: QueryFn) => void;
-type AsyncGlobalTestFn = (renderer: LiveDOMRenderer, $: QueryFn, cleanup: () => void) => void;
+type SyncGlobalTestFn = (renderer: LiveDOMRenderer, utils: TestingUtils) => void;
+type AsyncGlobalTestFn = (renderer: LiveDOMRenderer, utils: TestingUtils, cleanup: () => void) => void;
 
 function isSync(fn: SyncGlobalTestFn | AsyncGlobalTestFn): fn is SyncGlobalTestFn {
   return fn.length < 3;
@@ -37,12 +51,12 @@ export function testGlobalRender(
   require('localstorage-polyfill');
   require('matchmedia-polyfill');
   require('matchmedia-polyfill/matchMedia.addListener');
-  testRender((renderer, _, $) => {
+  testRender((renderer, utils) => {
     if (isSync(test)) {
-      test(renderer, $);
+      test(renderer, utils);
       cleanup();
     } else {
-      test(renderer, $, cleanup);
+      test(renderer, utils, cleanup);
     }
   }, window as any);
 }
