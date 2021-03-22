@@ -95,7 +95,7 @@ describe('whatever ...', () => {
     //
     // you have access to global document object within the test now.
     //
-    testGlobalRender((renderer, { }) => {
+    testGlobalRender((renderer, { $ }) => {
     
       rendererer.render(<MyComponent/>).on(document.body)
       
