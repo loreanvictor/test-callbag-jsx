@@ -73,8 +73,10 @@ testRender((
     render,       // 👉 a convenience render function
     document,     // 👉 the document object
     window,       // 👉 the window object
+    press,        // 👉 emulates keyboard press
+    tab,          // 👉 emulates pressing tab
   }
-) => { ... })
+) => { /* your tests go here */ })
 ```
 
 
