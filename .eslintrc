@@ -19,7 +19,7 @@
     "indent": ["warn", 2],
     "newline-before-return": "warn",
     "eol-last": "warn",
-    "semi": "warn",
+    "semi": ["error", "never"],
     "no-trailing-spaces": "warn",
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/adjacent-overload-signatures": "warn",

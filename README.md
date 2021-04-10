@@ -19,24 +19,27 @@ npm i --save-dev test-callbag-jsx
 ```
 
 👉 Testing-framework agnostic \
-👉 Provides an isolated document and renderer for testing around \
-👉 Provides a function for clicking around to test interactions
+👉 Isolated document and renderer for testing \
+👉 Emulate user interaction (using [@testing-library/user-event](https://github.com/testing-library/user-event))
 
-P.S. this tool is pretty young. I will be adding further testing features (like controlling HTML inputs,
-etc) based on request or need.
 
 ## Usage
 
 ```tsx
 // removable-hellow.tsx
 
+import state from 'callbag-state'
 import { ref } from 'render-jsx/common'
+
 
 export function RemovableHellow({ name }, renderer) {
   const div = ref()
+  const typed = state('')
 
-  return <div _ref={div} onclick={() => renderer.remove(div)}>
-    Hellow {name}!
+  return <div _ref={div}>
+    <p>Hellow {name}:: {typed}!</p>
+    <input type='text' _state={typed}/>
+    <button onclick={() => renderer.remove(div.$)}>REMOVE</button>
   </div>
 }
 ```
@@ -55,10 +58,13 @@ describe('RemovableHellow', () => {
 
     testRender((renderer, { render, $ }) => {
       render(<RemovableHellow name='Jack'/>)
-      $('body').text().should.equal('Hellow Jack!')
+      $('p').text().should.equal('Hellow Jack:: !')
 
-      $('body :first-child').click()
-      $('body').text().should.equal('')
+      $('input').type('I just typed this')
+      $('p').text().should.equal('Hellow Jack:: I just typed this!')
+
+      $('button').click()
+      expect($('p').resolveOne()).to.be.undefined
     })
 
   })

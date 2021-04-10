@@ -95,7 +95,7 @@ describe('whatever ...', () => {
     //
     // you have access to global document object within the test now.
     //
-    testGlobalRender((renderer, { }) => {
+    testGlobalRender((renderer, { $ }) => {
     
       rendererer.render(<MyComponent/>).on(document.body)
       
@@ -245,24 +245,6 @@ $(myElement).is('some-class')
 
 <br><br>
 
-## Interaction:
-
-These methods will trigger DOM events on the first element matching the query.
-
-👉 `click()` triggers a click on first element matching the query:
-```ts
-$(myComp).children('button').last().click()
-```
-
-<br>
-
-👉 `trigger(event, props?)` triggers given event (with given properties):
-```ts
-$('div').trigger('mouseup')
-```
-
-<br>
-
 ## Resolution:
 
 👉 `resolve()` returns an array of all elements matching the query:
@@ -274,6 +256,37 @@ $(myComp).children('[attr=value]').resolve().length.should.equal(5)
 <br>
 
 👉 `resolveOne()` returns the first element matching the query.
+
+<br><br>
+
+## Interaction:
+
+`test-callbag-jsx` wraps [`@testing-library/user-event`](https://github.com/testing-library/user-event)` for
+convenient emulation of user interaction:
+
+```ts
+$(myComp).children('button').last().click()
+```
+```ts
+$('input').type('hellow world')
+```
+```tsx
+testRender((renderer, { render, $, tab, press }) => {
+  const s = state('')
+  render(<>
+    <input _state={s} type='text'/>
+    <button onclick={() => s.set('')}>Clear</button>
+  </>)
+
+  tab()                  // 👉 press <tab> key to focus an input
+  press('hellow there')  // 👉 press this key sequence
+  s.get().should.equal('hellow there')
+
+  $('button').click()    // 👉 clear the input
+  $('input').resolveOne()!.value.should.equal('')
+})
+```
+👉 [See All Interactions](interactions.md)
 
 <br><br>
 
@@ -331,3 +344,5 @@ testRender((renderer, { render }) => {
 
 👉 Note that when passing a spec, `render()` will also automatically render the component on an isolated container, where-as
 without a spec, it will just render it on the document body.
+
+<br><br>
