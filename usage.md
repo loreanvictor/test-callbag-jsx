@@ -50,10 +50,6 @@ describe('my component', () => {
       // test whether click interaction works.
       //
       $('body :first-child').click()
-      
-      //
-      // 👉 Note that `document` is only defined in this scope and is not registered globally.
-      //
     })
   
     //
