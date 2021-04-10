@@ -47,6 +47,17 @@ describe('query function ($)', () => {
     })
   })
 
+  it('should allow checking whether some element exists or not.', () => {
+    testRender((renderer, { render, $ }) => {
+      render(<div class='a'/>)
+      $('.a').exists().should.be.true
+      $('.b').exists().should.be.false
+
+      renderer.remove($('.a').resolveOne()!)
+      $('.a').exists().should.be.false
+    })
+  })
+
   describe('.click()', () => {
     it('should emulate clicking on elements.', () => {
       testRender((renderer, { render, $ }) => {

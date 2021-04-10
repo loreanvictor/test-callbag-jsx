@@ -24,6 +24,10 @@ export class Query extends Interactable {
     return safe(this.resolveOne())
   }
 
+  exists() {
+    return !!this.resolveOne()
+  }
+
   resolveOne() {
     if (!this.q) {
       return this.base as HTMLElement

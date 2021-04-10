@@ -64,7 +64,7 @@ describe('RemovableHellow', () => {
       $('p').text().should.equal('Hellow Jack:: I just typed this!')
 
       $('button').click()
-      expect($('p').resolveOne()).to.be.undefined
+      expect($('p').exists()).to.be.false
     })
 
   })

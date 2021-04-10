@@ -255,6 +255,20 @@ $(myComp).children('[attr=value]').resolve().length.should.equal(5)
 
 <br>
 
+👉 `exists()` will check whether any element matches given query.
+
+```tsx
+render(<div class='a'/>)
+
+$('.a').exists().should.be.true
+$('.b').exists().should.be.true
+
+renderer.remove($('.a').resolveOne()!)
+$('.a').exists().should.be.false
+```
+
+<br>
+
 👉 `resolveOne()` returns the first element matching the query.
 
 <br><br>
