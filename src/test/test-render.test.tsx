@@ -1,4 +1,5 @@
 /* eslint-disable no-unused-expressions */
+import sleep from 'sleep-promise'
 import state from 'callbag-state'
 import { should, expect } from 'chai'
 import { JSDOM } from 'jsdom'
@@ -24,6 +25,20 @@ describe('testRender()', () => {
       render(<button onmouseup={() => done()}/>)
       $('button').trigger('mouseup')
     })
+  })
+
+  it('should handle async test functions.', async () => {
+    let mark = false
+
+    await testRender(async (renderer, { render, $ }) => {
+      render(<p>Hellow</p>)
+      await sleep(10)
+
+      $('p').text()!.should.equal('Hellow')
+      mark = true
+    })
+
+    mark.should.be.true
   })
 
   it('should render using given jsdom instance.', () => {

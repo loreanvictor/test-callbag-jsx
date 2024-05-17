@@ -14,8 +14,12 @@ export interface TestingUtils extends SpecUtils {
   tab: (direction?: 1 | -1) => void
 }
 
-export type LocalTestFn = (renderer: LiveDOMRenderer, utils: TestingUtils) => void | Promise<void>
+type AsyncLocalTestFn = (renderer: LiveDOMRenderer, utils: TestingUtils) => Promise<void>
+type SyncLocalTestFn = (renderer: LiveDOMRenderer, utils: TestingUtils) => void
+export type LocalTestFn = SyncLocalTestFn | AsyncLocalTestFn
 
+export function testRender(test: SyncLocalTestFn, provided?: DOMWindow): void
+export function testRender(test: AsyncLocalTestFn, provided?: DOMWindow): Promise<void>
 export function testRender(
   test: LocalTestFn,
   provided?: DOMWindow,
@@ -32,7 +36,7 @@ export function testRender(
     tab: (direction: 1 | -1 = 1) => $().tab(direction),
   }
 
-  const p = test(
+  return test(
     renderer,
     {
       ...specUtils,
@@ -40,9 +44,6 @@ export function testRender(
     }
   )
 
-  if (p instanceof Promise) {
-    p.catch(console.log)
-  }
 }
 
 type SyncGlobalTestFn = (renderer: LiveDOMRenderer, utils: TestingUtils) => void
@@ -52,11 +53,11 @@ function isSync(fn: SyncGlobalTestFn | AsyncGlobalTestFn): fn is SyncGlobalTestF
   return fn.length < 3
 }
 
-export function testGlobalRender(test: AsyncGlobalTestFn): void;
-export function testGlobalRender(test: SyncGlobalTestFn): void;
+export function testGlobalRender(test: AsyncGlobalTestFn): Promise<void>
+export function testGlobalRender(test: SyncGlobalTestFn): void
 export function testGlobalRender(
   test: SyncGlobalTestFn | AsyncGlobalTestFn
-) {
+): void | Promise<void> {
   const cleanup = register()
   require('localstorage-polyfill')
   require('matchmedia-polyfill')
@@ -66,7 +67,12 @@ export function testGlobalRender(
       test(renderer, utils)
       cleanup()
     } else {
-      test(renderer, utils, cleanup)
+      return new Promise<void>((resolve) => {
+        test(renderer, utils, () => {
+          cleanup()
+          resolve()
+        })
+      })
     }
   }, window as any)
 }
